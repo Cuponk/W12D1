@@ -1,35 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export class ClockToggle extends React.Component {
-  render () {
+export const ClockToggle = ({ toggleClock }) => {
+  return (
+    <button 
+      type="button"
+      className="clock-toggle" 
+      onClick={toggleClock}
+    >
+      Toggle Clock
+    </button>
+  )
+}
+
+const Clock = () => {
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const interval = setInterval(tick, 1000);
+    
     return (
-      <button 
-        type="button"
-        className="clock-toggle" 
-        onClick={this.props.toggleClock}
-      >
-        Toggle Clock
-      </button>
+      console.log("Clearing Clock interval!")
+      clearInterval(interval);
     )
-  }
-} 
+  }, [])
+}
 
-class Clock extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: new Date(),
-    };
-  }
+
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       time: new Date(),
+//     };
+//   }
   
-  componentDidMount() {
-    this.interval = setInterval(this.tick, 1000);
-  }
-  
-  componentWillUnmount() {
-    console.log("Clearing Clock interval!")
-    clearInterval(this.interval);
-  }
   
   tick = () => {
     this.setState({ time: new Date() });
